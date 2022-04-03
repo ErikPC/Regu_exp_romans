@@ -17,6 +17,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <compiler.version>3.10.1</compiler.version>
+        <jar.version>3.2.2</jar.version>
+        <report.version>3.2.2</report.version>
+        <resources.version>3.2.0</resources.version>
+        <site.version>3.11.0</site.version>
     </properties>
     <dependencies>
         <dependency>
@@ -67,6 +72,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.2.5</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
             <!-- lock down plugins versions to avoid using Maven defaults -->
@@ -84,11 +109,11 @@
                 <!-- default lifecycle, jar packaging -->
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>${resources.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>${compiler.version}</version>
                     <configuration>
                         <release>11</release>
                     </configuration>
@@ -100,7 +125,7 @@
                 <plugin>
                     <!-- jar packaging -->
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>${jar.version}</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -123,11 +148,27 @@
                 <!-- site lifecycle -->
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
+                    <version>${site.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>${report.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.10.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.10.0</version>
+                    <configuration>
+                        <allowIncrementalUpdates>true</allowIncrementalUpdates>
+                        <allowMinorUpdates>true</allowMinorUpdates>
+                        <allowMajorUpdates>false</allowMajorUpdates>
+                        <allowSnapshots>false</allowSnapshots>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
